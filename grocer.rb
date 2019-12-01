@@ -33,7 +33,7 @@ def apply_coupons(cart, coupons)
           coupon_item = {
             item: new_name,
             price: coupon[:cost],
-            clearance: cart[coupon[:item]][:clearance],
+            clearance: found_item[:clearance],
             count: coupon[:num]
           }
           cart.push(coupon_item)
