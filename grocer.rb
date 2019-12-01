@@ -10,7 +10,7 @@ end
 def consolidate_cart(cart)
   result = []
   cart.each do |item|
-    if find_item_by_name_in_collection(item, result)
+    if find_item_by_name_in_collection(item[:item], result)
       result[name][:count] += 1
     else
       result[item] = {
