@@ -54,16 +54,16 @@ def apply_clearance(cart)
 end
 
 def checkout(cart, coupons)
-    consolidated_cart = consolidate_cart(cart)
-    coupons_applied = apply_coupons(consolidated_cart, coupons)
-    clearance_applied = apply_clearance(coupons_applied)
+  consolidated_cart = consolidate_cart(cart)
+  coupons_applied = apply_coupons(consolidated_cart, coupons)
+  clearance_applied = apply_clearance(coupons_applied)
 
-    total = 0.0
-    clearance_applied.keys.each do |item|
-        total += clearance_applied[:item][:price] * clearance_applied[item][:count]
-    end
-    if total > 100.00
-        total = total * 0.9
-    end
-    total.round(2)
+  total = 0.0
+  clearance_applied.each do |item|
+      total += item[:price] * item[:count]
+  end
+  if total > 100.00
+      total = total * 0.9
+  end
+  total.round(2)
 end
