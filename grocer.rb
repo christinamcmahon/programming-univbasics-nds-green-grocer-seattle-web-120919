@@ -14,11 +14,8 @@ def consolidate_cart(cart)
     if found_item
       found_item[:count] += 1
     else
-      result[item] = {
-        price: info[:price],
-        clearance: info[:clearance],
-        count: 1
-      }
+      item[:count] = 1
+      result.push(item)
     end
   end
   result
