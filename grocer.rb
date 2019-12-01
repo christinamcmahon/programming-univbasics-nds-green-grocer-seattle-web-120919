@@ -23,19 +23,22 @@ end
 
 def apply_coupons(cart, coupons)
   coupons.each do |coupon|
-    found_item
-    if find_item_by_name_in_collection(coupon[:item], cart) && cart[coupon[:item]][:count] >= coupon[:num]
+    found_item = find_item_by_name_in_collection(coupon[:item], cart)
+    if found_item && found_item[:count] >= coupon[:num]
         new_name = "#{coupon[:item]} W/COUPON"
-        if cart[new_name]
-            cart[new_name][:count] += coupon[:num]
+        found_coupon_item = find_item_by_name_in_collection(new_name, cart)
+        if found_coupon_item
+            found_coupon_item[:count] += coupon[:num]
         else
-            cart[new_name] = {
-                price: coupon[:cost],
-                clearance: cart[coupon[:item]][:clearance],
-                count: coupon[:num]
-            }
+          coupon_item = {
+            item: new_name,
+            price: coupon[:cost],
+            clearance: cart[coupon[:item]][:clearance],
+            count: coupon[:num]
+          }
+          cart.push(coupon_item)
         end
-        cart[coupon[:item]][:count] -= coupon[:num]
+        found_item[:count] -= coupon[:num]
     end
   end
   cart
