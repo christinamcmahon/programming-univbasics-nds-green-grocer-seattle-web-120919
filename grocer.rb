@@ -8,25 +8,20 @@ def find_item_by_name_in_collection(name, collection)
 end
 
 def consolidate_cart(cart)
-  result = []
-  i = 0
-  while i < cart.length do 
-    # if the item is not found in the result already, add the item and set its count to 1
-    if !find_item_by_name_in_collection(cart[i][:item], result)
-      result.push(cart[i])
-      result[-1][:count] = 1
-    else
-      # otherwise, find the matching item in result and add 1 to its count
-      result_i = 0 
-      while result_i < result.length do 
-        if result[result_i][:item] == cart[i][:item]
-          result[result_i][:count] += 1 
-        end
-        result_i += 1
+  result = {}
+  cart.each do |item|
+    item.each do |name, info|
+      if find_item_by_name_in_collection(item, result)
+        result[name][:count] += 1
+      else
+        result[item] = {
+          price: info[:price],
+          clearance: info[:clearance],
+          count: 1
+        }
       end
     end
-    i += 1
-  end 
+  end
   result
 end
 
