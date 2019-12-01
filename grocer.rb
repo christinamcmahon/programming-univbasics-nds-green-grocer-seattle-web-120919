@@ -32,7 +32,7 @@ def apply_coupons(cart, coupons)
         else
           coupon_item = {
             item: new_name,
-            price: coupon[:cost],
+            price: coupon[:cost]/coupon[:num],
             clearance: found_item[:clearance],
             count: coupon[:num]
           }
