@@ -10,16 +10,14 @@ end
 def consolidate_cart(cart)
   result = []
   cart.each do |item|
-    item.each do |name, info|
-      if find_item_by_name_in_collection(item, result)
-        result[name][:count] += 1
-      else
-        result[item] = {
-          price: info[:price],
-          clearance: info[:clearance],
-          count: 1
-        }
-      end
+    if find_item_by_name_in_collection(item, result)
+      result[name][:count] += 1
+    else
+      result[item] = {
+        price: info[:price],
+        clearance: info[:clearance],
+        count: 1
+      }
     end
   end
   result
